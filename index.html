@@ -144,6 +144,76 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Express之學習" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/05/Express%E4%B9%8B%E5%AD%B8%E7%BF%92/">Express之學習</a>
+    </h1>
+  
+
+        
+        <a href="/2021/01/05/Express%E4%B9%8B%E5%AD%B8%E7%BF%92/" class="archive-article-date">
+  	<time datetime="2021-01-05T13:43:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="/images/express.png"></p>
+<h2 id="Express-框架核心特性："><a href="#Express-框架核心特性：" class="headerlink" title="Express 框架核心特性："></a>Express 框架核心特性：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 可以設置中間件來響應 HTTP 請求。</span><br><span class="line"></span><br><span class="line">2. 定義了路由表用於執行不同的 HTTP 請求動作。</span><br><span class="line"></span><br><span class="line">3. 可以通過向模板傳遞參數來動態渲染 HTML 頁面。</span><br></pre></td></tr></table></figure>
+<h2 id="Download-express"><a href="#Download-express" class="headerlink" title="Download express"></a>Download express</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i express</span><br></pre></td></tr></table></figure>
+<h2 id="Working-on-Express-APP"><a href="#Working-on-Express-APP" class="headerlink" title="Working on Express APP"></a>Working on Express APP</h2><h2 id="1-First-Step"><a href="#1-First-Step" class="headerlink" title="1. First Step:"></a>1. First Step:</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm.init -y</span><br></pre></td></tr></table></figure>
+<h2 id="2-Writing-a-express-server"><a href="#2-Writing-a-express-server" class="headerlink" title="2. Writing a express server"></a>2. Writing a express server</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">const express &#x3D; require(&quot;express&quot;);</span><br><span class="line">const app &#x3D; express();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; HOME PAGE</span><br><span class="line">app.get(&#39;&#x2F;&#39;, (req,res) &#x3D;&gt;&#123;</span><br><span class="line">	res.send(&#39;This is my home page&#39;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; SEARCH ANYTOPIC WITH A POST ID</span><br><span class="line">app.get(&#39;&#x2F;r&#x2F;:subreddit&#x2F;:postId&#39;, (req,res) &#x3D;&gt;&#123;</span><br><span class="line">	const &#123; subreddit, postId &#125; &#x3D; req.params; &#x2F;&#x2F; GET THE TOPIC NAME</span><br><span class="line">	res.send(&#96;&lt;h1&gt;Browsing $&#123;postId&#125; on the $&#123;subreddit&#125; subreddit &lt;h1&gt;&#96;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; SEARCH A QUERY</span><br><span class="line">app.get(&#39;&#x2F;search&#39;, (req, res) &#x3D;&gt;&#123;</span><br><span class="line">	const &#123;q&#125; &#x3D; req.query;  &#x2F;&#x2F; GET THE QUERY NAME</span><br><span class="line">	if(!q)&#123;</span><br><span class="line">		res.send(&#39;NOTHING FOUND IF NOTHIND SEARCH!!!&#39;);</span><br><span class="line">	&#125;</span><br><span class="line">	res.send(&#96;&lt;h1&gt;Search results for: $&#123;q&#125;&lt;h1&gt;&#96;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; IF CAN NOT BE RECONGISED</span><br><span class="line">app.get(&#39;*&#39;, (req,res) &#x3D;&gt;&#123;</span><br><span class="line">	res.send(&#96;I DON&#39;T KNOW THAT PATH&#96;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; LISTEN...</span><br><span class="line">app.listen(8080, () &#x3D;&gt; &#123;</span><br><span class="line">	console.log(&quot;LISTEN ON PORT 8080!&quot;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="3-Changing-the-server-without-restart"><a href="#3-Changing-the-server-without-restart" class="headerlink" title="3. Changing the server without restart"></a>3. Changing the server without restart</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i -g nodemon</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nodemon index.js</span><br></pre></td></tr></table></figure>
+<p>Ctrl+S will auto change your server.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/01/05/Express%E4%B9%8B%E5%AD%B8%E7%BF%92/">展開全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -225,7 +295,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 John Doe
+    		&copy; 2021 John Doe
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -243,7 +313,7 @@
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
-		toc_hide_index: true,
+		toc_hide_index: false,
 		root: "/",
 		innerArchive: true,
 		showTags: false
